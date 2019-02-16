@@ -67,7 +67,7 @@ namespace Sophia{
             JOResLayaMgr.Ins.setCheckInterval(RES_CHECK_INTERVAL);
             JOResLayaMgr.Ins.setResCls("",null);
             
-            // // 音乐播放器初始化
+            // 音乐播放器初始化
             JOAudioMgr.Ins.setMusicPlayer(new JOLayaMusicVO());
             JOAudioMgr.Ins.setSoundBase("JOLayaSoundVO", JOLayaSoundVO);
             
@@ -80,6 +80,7 @@ namespace Sophia{
         private _tick(){
             JOTickMgr.Ins.tick(Laya.timer.delta);
             JOEventMgr.Ins.tick();
+            JOLayaUIMgr.Ins.tick();
         }
 
         private _norTimeTick(){
