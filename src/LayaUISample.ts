@@ -11,6 +11,11 @@ class TestUI extends ui.test.TestPageUI {
 		//btn是编辑器界面设定的，代码里面能直接使用，并且有代码提示
 		this.btn.on(Laya.Event.CLICK, this, this.onBtnClick);
 		this.btn2.on(Laya.Event.CLICK, this, this.onBtn2Click);
+		console.log("eqwewqeqeqewq");
+		let launch = new Sophia.SLayaEnter();
+		launch.init();
+
+		
 	}
 
 	private onBtnClick(): void {
@@ -20,6 +25,8 @@ class TestUI extends ui.test.TestPageUI {
 		this.tab.selectedIndex = 2;
 		this.combobox.selectedIndex = 0;
 		this.check.selected = true;
+
+		Sophia.JOLog.info("afdsd", "qerwr{0}, fsdfs{1}"," rew232 ", " 8273 ");
 	}
 
 	private onBtn2Click(): void {
@@ -40,6 +47,8 @@ class TestUI extends ui.test.TestPageUI {
 
 		//还可以自定义list渲染方式，可以打开下面注释看一下效果
 		//list.renderHandler = new Handler(this, onListRender);
+
+		Sophia.JOLog.info("afdsd", "qerwr{0}, fsdfs{1}"," rew232 ", " 8273 ");
 	}
 
 	private onListRender(item: Laya.Box, index: number): void {

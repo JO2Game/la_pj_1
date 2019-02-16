@@ -20,10 +20,10 @@ namespace Sophia{
             if(GConfig.LOG_SHOW===true){
                 JOLog.setCall(this, (logLv, msg)=>{
                     switch(logLv){
-                        case 2:
+                        case 1:
                             console.warn(msg);
                             break;
-                        case 3:
+                        case 2:
                             console.error(msg);
                             break;
                         default :
@@ -75,6 +75,14 @@ namespace Sophia{
             Laya.timer.frameLoop(1, this, this._tick);
             Laya.timer.loop(NOR_SECOND_CHECK_INTERVAL, this, this._norTimeTick);
             Laya.timer.frameLoop(NOR_FRAME_CHECK_INTERVAL, this, this._norFrameTick);
+
+
+            if(GConfig.DEBUG){
+                //laya.debug.DebugPanel.init();
+                laya.utils.Stat.show(0,0); 
+            }
+            Laya.WorkerLoader.workerPath = "libs/worker.js";
+            Laya.WorkerLoader.enable = true
         }
         
         private _tick(){

@@ -12,9 +12,9 @@
         return enumIdx;
      }
     //--日志等级
-    export const LOG_LV_INFO:number = 1;
-    export const LOG_LV_WARN:number = 2;
-    export const LOG_LV_ERROR:number = 3;
+    export const LOG_LV_INFO:number = 0;
+    export const LOG_LV_WARN:number = 1;
+    export const LOG_LV_ERROR:number = 2;
 
     //--图层
     enumIdx = 0;
