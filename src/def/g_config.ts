@@ -28,4 +28,8 @@ namespace GConfig{
 
     // 本地消息是否分帧派发
     export const EVENT_LOCAL_IN_TICK:boolean = true;
+
+    // 设计分辨率
+    export const DESIGN_WIDTH:number = 640;
+    export const DESIGN_HEIGHT:number = 960;
 }
