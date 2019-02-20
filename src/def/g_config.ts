@@ -6,7 +6,7 @@
 
 namespace GConfig{
     export const DEBUG:boolean = true;
-
+    
     //--******************日志设置****************************************
     export const LOG_SHOW:boolean = true
     export const LOG_SHOW_IN_TICK:boolean = true;

@@ -16,6 +16,29 @@ namespace Sophia{
         
         public init(){
             Laya.init(GConfig.DESIGN_WIDTH, GConfig.DESIGN_HEIGHT, Laya.WebGL);
+            
+            this._initLogCfg();
+            this._initMgr();
+            
+            
+            //循环事件 初始化
+            Laya.timer.frameLoop(1, this, this._tick);
+            Laya.timer.loop(NOR_SECOND_CHECK_INTERVAL, this, this._norTimeTick);
+            Laya.timer.frameLoop(NOR_FRAME_CHECK_INTERVAL, this, this._norFrameTick);
+
+
+            if(GConfig.DEBUG){
+                //laya.debug.DebugPanel.init();
+                laya.utils.Stat.show(0,0); 
+            }
+            Laya.WorkerLoader.workerPath = "libs/worker.js";
+            Laya.WorkerLoader.enable = true
+
+            this.initScene();
+            Laya.stage.on(Laya.Event.RESIZE,this,this._onResize);
+        }
+
+        private _initLogCfg(){
             //日志 初始化
             if(GConfig.LOG_SHOW===true){
                 Sophia.JOLog.setCall(this, (logLv, msg)=>{
@@ -50,7 +73,9 @@ namespace Sophia{
             else{
                 Sophia.JOLog.setLevel(GDef.LOG_LV_ERROR+999);
             }
-            
+        }
+
+        private _initMgr(){
             //Socket 初始化
             Sophia.JOSocketMgr.Ins.setDebug(GConfig.NET_MSG_SHOW);
             Sophia.JOSocketMgr.Ins.setSocketVO(Sophia.JOSocketLayaVO);
@@ -70,22 +95,21 @@ namespace Sophia{
             // 音乐播放器初始化
             Sophia.JOAudioMgr.Ins.setMusicPlayer(new Sophia.JOLayaMusicVO());
             Sophia.JOAudioMgr.Ins.setSoundBase("JOLayaSoundVO", Sophia.JOLayaSoundVO);
-            
-            //循环事件 初始化
-            Laya.timer.frameLoop(1, this, this._tick);
-            Laya.timer.loop(NOR_SECOND_CHECK_INTERVAL, this, this._norTimeTick);
-            Laya.timer.frameLoop(NOR_FRAME_CHECK_INTERVAL, this, this._norFrameTick);
+        }
 
 
-            if(GConfig.DEBUG){
-                //laya.debug.DebugPanel.init();
-                laya.utils.Stat.show(0,0); 
-            }
-            Laya.WorkerLoader.workerPath = "libs/worker.js";
-            Laya.WorkerLoader.enable = true
+        private _initLanuage(){
+            JOLanguageMgr.Ins.addChangeCall(this, this._lanuageChange);
+            JOLanguageMgr.Ins.setLanguage(GConfig.LANGUAGE);
+        }
+        private _lanuageChange(lanuage:string){
+            JORefMgr.Ins.clearLan();
+            JOTxtMgr.Ins.clear();
+            JOKeyWordMgr.Ins.clear();
 
-            this.initScene();
-            Laya.stage.on(Laya.Event.RESIZE,this,this._onResize);
+            // JORefMgr.Ins._addLanRef();
+            // JOTxtMgr.Ins._addTxt();
+            // JOKeyWordMgr.Ins.addKeyword();
         }
 
         public static setFrameRate(rate: number)
