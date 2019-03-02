@@ -19,8 +19,8 @@ namespace Sophia{
             
             this._initLogCfg();
             this._initMgr();
-            
-            
+            this._initLanuage();
+            this._initMusic();
             //循环事件 初始化
             Laya.timer.frameLoop(1, this, this._tick);
             Laya.timer.loop(NOR_SECOND_CHECK_INTERVAL, this, this._norTimeTick);
@@ -36,6 +36,62 @@ namespace Sophia{
 
             this.initScene();
             Laya.stage.on(Laya.Event.RESIZE,this,this._onResize);
+            
+        }
+        public static setFrameRate(rate: number)
+        {
+            //项目根据要求固定30帧, 这里不被调整！
+            if(rate >= 60){
+                Laya.stage.frameRate = "fast";
+            }
+            else{
+                Laya.stage.frameRate = "slow";
+            }
+        }
+
+        public initScene(){
+            //Laya.init(GConfig.DESIGN_WIDTH, GConfig.DESIGN_HEIGHT, Laya.WebGL);
+            // 设置流程度（0=标准，1=流畅【默认0】）
+            let fluntIndex = laya.net.LocalStorage.getItem("FluntIndex");
+            if (fluntIndex == null || fluntIndex == "0"){
+                Config.isAntialias = false;
+            }
+            else if (fluntIndex == "1"){
+                Config.isAntialias = true;
+            }
+            
+            Laya3D.init(0, 0, true);
+            //帧率限定为30
+            SLayaEnter.setFrameRate(30);
+            // 尝试把默认下载线程改为10个//
+            // Laya.loader.maxLoader = 10;
+
+            // //设置适配模式
+            // let scale = Laya.Browser.width/Laya.Browser.height;//高宽比
+            // let minScale =  17/32;
+            // let maxScale = 19/32;
+            // /** 设计宽高比 */
+            // // let designSize = ScreenConfig.WINDOW_DESIGN_WIDTH / ScreenConfig.WINDOW_DESIGN_HEIGHT;
+            // if (Laya.Browser.onIPhone) {
+            //     ScreenConfig.IsIphoneX = true;
+            // }
+            // let debugFlag = true; // TODO , 现在调试模式就不用这个模式！
+            // if(!debugFlag && (scale>minScale&&scale<maxScale)){
+            //     Laya.stage.scaleMode = Laya.Stage.SCALE_EXACTFIT;
+            // }else{
+            //     if (scale > 0.6) {
+            //         Laya.stage.scaleMode = Laya.Stage.SCALE_FIXED_AUTO;//Laya.Stage.SCALE_SHOWALL;
+            //     } else {
+            //         Laya.stage.scaleMode = Laya.Stage.SCALE_FIXED_WIDTH;//SCALE_FIXED_HEIGHT; //SCALE_FIXED_WIDTH;
+            //     }
+            //     // Laya.stage.screenMode = Laya.Stage.SCREEN_VERTICAL;
+            // }
+            // Laya.stage.screenMode = Laya.Stage.SCREEN_NONE;
+            // Laya.stage.alignV = Laya.Stage.ALIGN_TOP;
+            // Laya.stage.alignH = Laya.Stage.ALIGN_CENTER;
+
+            fairygui.GRoot.inst.setSize(GConfig.DESIGN_WIDTH, GConfig.DESIGN_HEIGHT);
+            Laya.stage.addChild(fairygui.GRoot.inst.displayObject);
         }
 
         private _initLogCfg(){
@@ -92,11 +148,23 @@ namespace Sophia{
             Sophia.JOResLayaMgr.Ins.setCheckInterval(RES_CHECK_INTERVAL);
             Sophia.JOResLayaMgr.Ins.setResCls("JOResLayaVO",Sophia.JOResLayaVO);
             
+        }
+
+        private _initMusic(){
             // 音乐播放器初始化
             Sophia.JOAudioMgr.Ins.setMusicPlayer(new Sophia.JOLayaMusicVO());
             Sophia.JOAudioMgr.Ins.setSoundBase("JOLayaSoundVO", Sophia.JOLayaSoundVO);
+            Laya.stage.on(Laya.Event.FOCUS, this, this._onFocus);
+            Laya.stage.on(Laya.Event.BLUR, this, this._onBlur);
         }
-
+        private _onFocus(){
+            Sophia.JOAudioMgr.Ins.resumeMusic();
+            //Sophia.JOAudioMgr.Ins.resumeAllSound();
+        }
+        private _onBlur(){
+            Sophia.JOAudioMgr.Ins.pauseMusic();
+            Sophia.JOAudioMgr.Ins.stopAllSound();
+        }
 
         private _initLanuage(){
             JOLanguageMgr.Ins.addChangeCall(this, this._lanuageChange);
@@ -112,62 +180,6 @@ namespace Sophia{
             // JOKeyWordMgr.Ins.addKeyword();
         }
 
-        public static setFrameRate(rate: number)
-        {
-            //项目根据要求固定30帧, 这里不被调整！
-            if(rate >= 60){
-                Laya.stage.frameRate = "fast";
-            }
-            else{
-                Laya.stage.frameRate = "slow";
-            }
-        }
-
-        public initScene(){
-            //Laya.init(GConfig.DESIGN_WIDTH, GConfig.DESIGN_HEIGHT, Laya.WebGL);
-            // 设置流程度（0=标准，1=流畅【默认0】）
-            let fluntIndex = laya.net.LocalStorage.getItem("FluntIndex");
-            if (fluntIndex == null || fluntIndex == "0"){
-                Config.isAntialias = false;
-            }
-            else if (fluntIndex == "1"){
-                Config.isAntialias = true;
-            }
-            
-            Laya3D.init(0, 0, true);
-            //帧率限定为30
-            SLayaEnter.setFrameRate(30);
-            // 尝试把默认下载线程改为10个//
-            // Laya.loader.maxLoader = 10;
-
-            // //设置适配模式
-            // let scale = Laya.Browser.width/Laya.Browser.height;//高宽比
-            // let minScale =  17/32;
-            // let maxScale = 19/32;
-            // /** 设计宽高比 */
-            // // let designSize = ScreenConfig.WINDOW_DESIGN_WIDTH / ScreenConfig.WINDOW_DESIGN_HEIGHT;
-            // if (Laya.Browser.onIPhone) {
-            //     ScreenConfig.IsIphoneX = true;
-            // }
-            // let debugFlag = true; // TODO , 现在调试模式就不用这个模式！
-            // if(!debugFlag && (scale>minScale&&scale<maxScale)){
-            //     Laya.stage.scaleMode = Laya.Stage.SCALE_EXACTFIT;
-            // }else{
-            //     if (scale > 0.6) {
-            //         Laya.stage.scaleMode = Laya.Stage.SCALE_FIXED_AUTO;//Laya.Stage.SCALE_SHOWALL;
-            //     } else {
-            //         Laya.stage.scaleMode = Laya.Stage.SCALE_FIXED_WIDTH;//SCALE_FIXED_HEIGHT; //SCALE_FIXED_WIDTH;
-            //     }
-            //     // Laya.stage.screenMode = Laya.Stage.SCREEN_VERTICAL;
-            // }
-            // Laya.stage.screenMode = Laya.Stage.SCREEN_NONE;
-            // Laya.stage.alignV = Laya.Stage.ALIGN_TOP;
-            // Laya.stage.alignH = Laya.Stage.ALIGN_CENTER;
-
-            fairygui.GRoot.inst.setSize(GConfig.DESIGN_WIDTH, GConfig.DESIGN_HEIGHT);
-            Laya.stage.addChild(fairygui.GRoot.inst.displayObject);
-        }
-        
         private _tick(){
             Sophia.JOTickMgr.Ins.tick(Laya.timer.delta);
             Sophia.JOEventMgr.Ins.tick();

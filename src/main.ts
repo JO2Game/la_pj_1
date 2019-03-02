@@ -15,6 +15,19 @@ class GameMain
 		//let enter = new Sophia.SLayaEnter()
         let enter = new Sophia.SLayaEnter()
 		enter.init();
+
+        Sophia.JOLog.error("","{0}", Sophia.JOMath.pointInLine(2,10, 6,2));
+
+        let j=0;
+        while(j<2){
+            for(let i=0;i<10;i++){
+                if(i==2)
+                    break;
+                console.log("iiiiiiiiiiiii", i);
+            }
+            console.log("jjjjjjjjjjjjjjjjjjjjj", j);
+            j++;
+        }
     }
 }
 
