@@ -139,6 +139,7 @@ namespace Sophia{
             // Other 初始化
             Sophia.JOSnMgr.Ins.setCheckInterval(SN_CHECK_INTERVAL);
             Sophia.JOPoolMgr.Ins.setCheckInterval(POOL_CHECK_INTERVAL);
+            Sophia.JOPoolMgr.Ins.setDebug(GConfig.DEBUG_POOL);
 
             // 消息处理 初始化
             Sophia.JOEventMgr.Ins.setLocalBinderVO("JOEBinderLocalVO",Sophia.JOEBinderLocalVO);

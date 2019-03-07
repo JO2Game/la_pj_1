@@ -6,7 +6,7 @@
 
 namespace GConfig{
     export const DEBUG:boolean = true;
-    
+    export const DEBUG_POOL:boolean = false; //是否记录对象池信息
     //--******************日志设置****************************************
     export const LOG_SHOW:boolean = true
     export const LOG_SHOW_IN_TICK:boolean = true;
