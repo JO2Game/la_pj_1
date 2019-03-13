@@ -182,7 +182,7 @@ namespace Sophia{
         }
 
         private _tick(){
-            Sophia.JOTickMgr.Ins.tick(Laya.timer.delta);
+            Sophia.JOTickMgr.Ins.tick(Laya.timer.delta*0.001);
             Sophia.JOEventMgr.Ins.tick();
             Sophia.JOLayaUIMgr.Ins.tick();
         }

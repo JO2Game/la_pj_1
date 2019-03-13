@@ -7,6 +7,7 @@ namespace Sophia{
         }
         run(){
             let fsmDemo = new FsmDemo();
+            let cmdDemo = new CmdDemo();
         }
 
         tick(){
