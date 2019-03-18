@@ -13,28 +13,33 @@ namespace Sophia{
             queue.pushBackCall(this, this._run1, this, this._update1);
             queue.pushBackCall(this, this._run1, this, this._update1);
 
-            queue.start();
+            
 
             let syncVO = new CmdSyncVO();
             for(let i=0;i<2;i++){
                 let queue = new CmdQueue();
-                queue.setRunNextInDelay(true);
+                queue.setRunNextInDelay(false);
                 queue.pushBackCall(this, this._run2, this, this._update2);
-                queue.pushBackCall(this, this._run3, this, this._update3);
+                queue.pushBackCall(this, this._run2, this, this._update2);
                 syncVO.pushQueue(queue);
             }
+            // let queue1 = new CmdQueue();
+            // queue1.setRunNextInDelay(false);
+            // queue1.pushBackCall(this, this._run3, this, this._update3);
+            // queue1.pushBackCall(this, this._run3, this, this._update3);
+            // syncVO.pushQueue(queue1);
             queue.pushBack(syncVO);
 
             let seq = new CmdSequenceVO();
             for(let i=0;i<3;i++){
                 let queue = new CmdQueue();
                 queue.setRunNextInDelay(true);
-                queue.pushBackCall(this, this._run1, this, this._update1);
-                queue.pushBackCall(this, this._run1, this, this._update1);
+                queue.pushBackCall(this, this._run3, this, this._update3);
+                queue.pushBackCall(this, this._run3, this, this._update3);
                 seq.pushQueue(queue);
             }
             queue.pushBack(seq);
-            
+            queue.start();
         }
 
         private _run1(vo:CmdVO){
@@ -68,7 +73,7 @@ namespace Sophia{
         private _update3(vo:CmdVO){
             this.m_update2Idx++;
             JOLog.info("CmdDemo", "update3 ", this.m_update2Idx);
-            if (this.m_update2Idx%3==0){
+            if (this.m_update2Idx%4==0){
                 vo.done();
                 this.m_update2Idx = 1;
             }
