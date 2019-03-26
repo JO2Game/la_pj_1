@@ -1,8 +1,8 @@
 import test = ui.test.TestPageUI;
 import Label = Laya.Label;
-import Handler = Laya.Handler;
-import Loader = Laya.Loader;
-import WebGL = Laya.WebGL;
+// import Handler = Laya.Handler;
+// import Loader = Laya.Loader;
+// import WebGL = Laya.WebGL;
 
 class TestUI extends ui.test.TestPageUI {
 
