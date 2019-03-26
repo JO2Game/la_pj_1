@@ -135,7 +135,6 @@ namespace Sophia
         /*--[[_s
         @todo: 重置Handle
         ]]*/
-        public onReset(){
-        };
+        public onReset(){}
     }
 }
