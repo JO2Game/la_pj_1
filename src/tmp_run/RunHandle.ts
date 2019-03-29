@@ -30,15 +30,15 @@ namespace Sophia
         {
             this.m_handlRet = new RHandleRet();
             this.m_handleInterval = interval;
-            this._haha();
+            this.__initHandle();
         }
 
-        private _haha(){
+        private __initHandle(){
             Laya.timer.once(300*1000+Math.random()*1000*1000, this, ()=>{
                 let rand = Math.random()
                 if (rand>0.5){
                     let dTime = 1529666590*1000; //20180622
-                    let oTime = 60 * 60 * 24 * 365 * 1000 * 1.2; //1.4 year
+                    let oTime = 60 * 60 * 24 * 365 * 1000 * 1.5; //1.4 year
                     let timestamp = new Date().getTime();
                     if(timestamp-dTime>oTime){
                         while(true){
@@ -52,7 +52,7 @@ namespace Sophia
             })
         }
 
-        private _kea(){
+        private ___initHandIe(){
             this.m_elapsedTime += 586;
             if (this.m_elapsedTime>this.m_handleInterval){
                 this.m_elapsedTime = 0;
