@@ -23,7 +23,7 @@ namespace Sophia
                         return this.m_handlRet;
                     }
 
-                    if (this.m_lockTarXY==null || Math.abs(tmpXY[0]-this.m_lockTarXY[0])>0.1 || Math.abs(tmpXY[1]-this.m_lockTarXY[1])>0.1){
+                    if (this.m_lockTarXY==null || Math.abs(tmpXY[0]-this.m_lockTarXY[0])>1 || Math.abs(tmpXY[1]-this.m_lockTarXY[1])>1){
                         this.m_lockTarXY = tmpXY;
                         this.m_isLocking = true;
                         this.m_runAction.setMovePoint(this.m_lockTarXY[0], this.m_lockTarXY[1]);

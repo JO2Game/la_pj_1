@@ -13,8 +13,8 @@ namespace Sophia
             let sine=Math.sin(angle);
             let cosine=Math.cos(angle);
             
-            let x=0;
-            let y=0;
+            // let x=0;
+            // let y=0;
             
             let xB=dX*cosine+dY*sine;
             let yB=dY*cosine-dX*sine;

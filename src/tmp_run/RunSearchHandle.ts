@@ -29,7 +29,7 @@ namespace Sophia
                 // 有目标的情况
                 let dist = null;
                 let tmpXY = this.m_runAction.getTargetXY();
-                if (this.m_tarXY==null || Math.abs(tmpXY[0]-this.m_tarXY[0])>0.1 || Math.abs(tmpXY[1]-this.m_tarXY[1])>0.1){
+                if (this.m_tarXY==null || Math.abs(tmpXY[0]-this.m_tarXY[0])>1 || Math.abs(tmpXY[1]-this.m_tarXY[1])>1){
                     this.m_tarXY = tmpXY;
                     dist = this.m_runAction.disForTarget(this.m_tarXY[0], this.m_tarXY[1]);
                     if(dist<=this.m_runAction.getAttDis()){

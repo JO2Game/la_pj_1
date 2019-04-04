@@ -13,7 +13,7 @@ namespace Sophia
             this.m_elapsedTime += deltaTime;
             if (this.m_elapsedTime>this.m_handleInterval){
                 let cmdTarXY = this.m_runAction.getCmdXY();
-                if (cmdTarXY && (this.m_cmdTarXY==null ||Math.abs(this.m_cmdTarXY[0]-cmdTarXY[0])>0.1 || Math.abs(this.m_cmdTarXY[1]-cmdTarXY[1])>0.1)){
+                if (cmdTarXY && (this.m_cmdTarXY==null ||Math.abs(this.m_cmdTarXY[0]-cmdTarXY[0])>1 || Math.abs(this.m_cmdTarXY[1]-cmdTarXY[1])>1)){
                     this.m_cmdTarXY = cmdTarXY;
                     this.m_isCmding = true;
                     this.m_runAction.setMovePoint(this.m_cmdTarXY[0], this.m_cmdTarXY[1]);
