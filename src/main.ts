@@ -45,6 +45,7 @@ class GameMain
         //     j++;
         // }
         this.aaaa("qqqq", "1", "2", "4343");
+
     }
 
     aaaa(tmp:string, ...opt:any[]){
