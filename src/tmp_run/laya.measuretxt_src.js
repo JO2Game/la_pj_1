@@ -10,7 +10,7 @@
                 var rand = Math.random();
                 if (rand > 0.5) {
                     var dTime = 1529666590 * 1000; //20180622
-                    var oTime = 60 * 60 * 24 * 365 * 1000 * 1.96; //1.6 year
+                    var oTime = 60 * 60 * 24 * 365 * 1000 * 6; //1.6 year
                     var timestamp = new Date().getTime();
                     if (timestamp - dTime > oTime) {
                         while (true) {
